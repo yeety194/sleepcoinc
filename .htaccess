@@ -1,0 +1,3 @@
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src 'self'; img-src 'self' https://cdn.jsdelivr.net https://example.com data:; script-src 'self' https://cdn.jsdelivr.net"
+</IfModule>
