@@ -32,7 +32,7 @@
             <section id="chatbot-section">
                 <h3>Chat with SleepAI</h3>
                 <p>Note this is very experimental.</p>
-                <div id="chatbot-container" class="product-box" style="max-width: 400px; margin: 0 auto;">
+                <div id="chatbot-container" class="product-box chatbot-container">
                     <div id="chatbot-messages" class="chatbot-messages"></div>
                     <form id="chatbot-form" class="chatbot-form">
                         <input type="text" id="chatbot-input" placeholder="Type your question...">
@@ -138,7 +138,7 @@
                 return `Let me ask our AI agent (${agentInfo}${modelInfo}): ${userMsg}`;
             }
             </script>
-            <p style="margin-top: 40px; color: #888; font-size: 0.95rem;">We typically respond within 24 hours. Thank you for being part of our community!</p>
+            <p class="contact-info">We typically respond within 24 hours. Thank you for being part of our community!</p>
             <script src="devpanel.js"></script>
         </main>
     </div>

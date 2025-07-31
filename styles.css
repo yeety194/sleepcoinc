@@ -1,3 +1,66 @@
+/* Contact page custom styles */
+.contact-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    margin-top: 32px;
+}
+.discord-btn {
+    width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+    background: #5865F2;
+    color: #fff;
+    border: none;
+    transition: background 0.2s;
+}
+.discord-btn:hover {
+    background: #4752c4;
+}
+.discord-icon {
+    width: 24px;
+    height: 24px;
+}
+.chatbot-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.chatbot-messages {
+    height: 180px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e0e6ef;
+    padding: 12px;
+    font-size: 0.98rem;
+}
+.chatbot-form {
+    display: flex;
+    gap: 8px;
+}
+#chatbot-input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #e0e6ef;
+}
+.contact-info {
+    margin-top: 40px;
+    color: #888;
+    font-size: 0.95rem;
+    text-align: center;
+}
 /* Base styles */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
