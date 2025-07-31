@@ -28,6 +28,71 @@
                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4ac.png" alt="Discord" style="width: 24px; height: 24px;"> Join our Discord
                 </a>
             </div>
+            <!-- Chatbot Section -->
+            <section id="chatbot-section" style="margin-top: 48px;">
+                <h3>Chat with SleepAI</h3>
+                <p>Note this is very experimental.</p>
+                <div id="chatbot-container" style="background: #f5f7fa; border-radius: 8px; padding: 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); max-width: 400px; margin: 0 auto;">
+                    <div id="chatbot-messages" style="height: 180px; overflow-y: auto; margin-bottom: 16px; background: #fff; border-radius: 6px; border: 1px solid #e0e6ef; padding: 12px; font-size: 0.98rem;"></div>
+                    <form id="chatbot-form" style="display: flex; gap: 8px;">
+                        <input type="text" id="chatbot-input" placeholder="Type your question..." style="flex: 1; padding: 8px 12px; border-radius: 4px; border: 1px solid #e0e6ef;">
+                        <button type="submit" class="button" style="padding: 8px 16px;">Send</button>
+                    </form>
+                </div>
+            </section>
+            <script>
+            // Simple chatbot using sleepai.json
+            let sleepAIData = {};
+            fetch('sleepai.json')
+                .then(response => response.json())
+                .then(data => sleepAIData = data);
+
+            const form = document.getElementById('chatbot-form');
+            const input = document.getElementById('chatbot-input');
+            const messages = document.getElementById('chatbot-messages');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const userMsg = input.value.trim();
+                if (!userMsg) return;
+                addMessage('You', userMsg);
+                input.value = '';
+                let reply = getSleepAIReply(userMsg);
+                setTimeout(() => addMessage('SleepAI', reply), 500);
+            });
+
+            function addMessage(sender, text) {
+                const msgDiv = document.createElement('div');
+                msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
+                messages.appendChild(msgDiv);
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            function getSleepAIReply(userMsg) {
+                // Help users understand the website and its features
+                userMsg = userMsg.toLowerCase();
+                if (userMsg.includes('product') || userMsg.includes('products')) {
+                    return "Check out our Products page to explore Yeetlord Studios, Yeetlord's Cheats, and Nates Studio. Each product image is a button that links to more info!";
+                }
+                if (userMsg.includes('about')) {
+                    return "Visit the About Us page to learn about Sleep Co Inc's mission, story, and values.";
+                }
+                if (userMsg.includes('contact') || userMsg.includes('support')) {
+                    return "You're on the Contact & Support page! Here you can join our Discord or chat with SleepAI for help.";
+                }
+                if (userMsg.includes('discord')) {
+                    return "Join our Discord community using the button above for live support and updates.";
+                }
+                if (userMsg.includes('home') || userMsg.includes('index')) {
+                    return "The Home page welcomes you to Sleep Co Inc and provides navigation to all sections.";
+                }
+                if (userMsg.includes('help') || userMsg.includes('how')) {
+                    return "You can navigate using the menu at the top. Ask me about any page or feature for more info!";
+                }
+                // Fallback: suggest what to ask
+                return "I'm SleepAI! Ask me about our Products, About Us, Contact, or how to use the website.";
+            }
+            </script>
             <p style="margin-top: 40px; color: #888; font-size: 0.95rem;">We typically respond within 24 hours. Thank you for being part of our community!</p>
         </main>
     </div>
