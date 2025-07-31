@@ -14,7 +14,8 @@
     document.body.appendChild(devBtn);
 
     devBtn.addEventListener('click', () => {
-        const ACCESS_CODE = '1865';
+        const ACCESS_CODE = '0816'; // Developer access code
+        // Check local storage for access code
         const CODE_KEY = 'sleepcoinc-dev-access';
         if (localStorage.getItem(CODE_KEY) !== ACCESS_CODE) {
             const entered = prompt('Enter developer access code:');
