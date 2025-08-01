@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <div class="container">
         <header>
             <h1>Sleep Co Inc</h1>
-            <nav>
+            <nav aria-label="Main navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
@@ -24,121 +25,10 @@
             <h2>Contact & Support</h2>
             <p>Need help or want to connect with us? Join our community or reach out on our socials below!</p>
             <div class="contact-socials">
-                <a href="https://discord.gg/3NPn9Cjpxk" target="_blank" class="button discord-btn">
+                <a href="https://discord.gg/3NPn9Cjpxk" target="_blank" rel="noopener" class="button discord-btn" aria-label="Join our Discord">
                     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4ac.png" alt="Discord" class="discord-icon"> Join our Discord
                 </a>
             </div>
-            <!-- Chatbot Section -->
-            <section id="chatbot-section">
-                <h3>Chat with SleepAI</h3>
-                <p>Note this is very experimental.</p>
-                <div id="chatbot-container" class="product-box chatbot-container">
-                    <div id="chatbot-messages" class="chatbot-messages"></div>
-                    <form id="chatbot-form" class="chatbot-form">
-                        <input type="text" id="chatbot-input" placeholder="Type your question...">
-                        <button type="submit" class="button">Send</button>
-                    </form>
-                </div>
-            </section>
-            <script>
-            // Simple chatbot using sleepai.json
-            let sleepAIData = {};
-            fetch('sleepai.json')
-                .then(response => response.json())
-                .then(data => sleepAIData = data);
-
-            const form = document.getElementById('chatbot-form');
-            const input = document.getElementById('chatbot-input');
-            const messages = document.getElementById('chatbot-messages');
-
-            // Start the conversation with a greeting
-            addMessage('SleepAI', "Hi! I'm SleepAI. Ask me about our website or anything else, and I'll do my best to help!");
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const userMsg = input.value.trim();
-                if (!userMsg) return;
-                addMessage('You', userMsg);
-                input.value = '';
-                // Check if it's a website question
-                if (isWebsiteQuestion(userMsg)) {
-                    let reply = getSleepAIReply(userMsg);
-                    setTimeout(() => addMessage('SleepAI', reply), 500);
-                } else {
-                    // Non-website question: send to AI (simulated)
-                    fetchAIResponse(userMsg).then(aiReply => {
-                        addMessage('SleepAI', aiReply);
-                    });
-                }
-            });
-
-            function addMessage(sender, text) {
-                const msgDiv = document.createElement('div');
-                msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
-                messages.appendChild(msgDiv);
-                messages.scrollTop = messages.scrollHeight;
-            }
-
-            function isWebsiteQuestion(userMsg) {
-                const keywords = [
-                    'product', 'products', 'about', 'contact', 'support', 'discord', 'home', 'index', 'help', 'how'
-                ];
-                userMsg = userMsg.toLowerCase();
-                return keywords.some(k => userMsg.includes(k));
-            }
-
-            function fetchAIResponse(userMsg) {
-                // Use your backend to get a real AI response
-                return fetch('http://localhost:3001/api/ask', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ question: userMsg })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const agent = sleepAIData.nodes && sleepAIData.nodes.find(n => n.type && n.type.includes('agent'));
-                    const model = sleepAIData.nodes && sleepAIData.nodes.find(n => n.type && n.type.includes('lmChatGoogleGemini'));
-                    let agentInfo = agent ? agent.name : 'AI Agent';
-                    let modelInfo = model ? `, powered by ${model.name}` : '';
-                    return `Let me ask our AI agent (${agentInfo}${modelInfo}): ${data.answer}`;
-                })
-                .catch(() => {
-                    return 'Sorry, there was a problem contacting the AI service.';
-                });
-            }
-
-            function getSleepAIReply(userMsg) {
-                // Help users understand the website and its features
-                userMsg = userMsg.toLowerCase();
-                if (userMsg.includes('product') || userMsg.includes('products')) {
-                    return "Check out our Products page to explore Yeetlord Studios, Yeetlord's Cheats, and Nates Studio. Each product image is a button that links to more info!";
-                }
-                if (userMsg.includes('about')) {
-                    return "Visit the About Us page to learn about Sleep Co Inc's mission, story, and values.";
-                }
-                if (userMsg.includes('contact') || userMsg.includes('support')) {
-                    return "You're on the Contact & Support page! Here you can join our Discord or chat with SleepAI for help.";
-                }
-                if (userMsg.includes('discord')) {
-                    return "Join our Discord community using the button above for live support and updates.";
-                }
-                if (userMsg.includes('home') || userMsg.includes('index')) {
-                    return "The Home page welcomes you to Sleep Co Inc and provides navigation to all sections.";
-                }
-                if (userMsg.includes('help') || userMsg.includes('how')) {
-                    return "You can navigate using the menu at the top. Ask me about any page or feature for more info!";
-                }
-                // Fallback: simulate asking the AI agent and echo the user's question
-                const agent = sleepAIData.nodes && sleepAIData.nodes.find(n => n.type && n.type.includes('agent'));
-                const model = sleepAIData.nodes && sleepAIData.nodes.find(n => n.type && n.type.includes('lmChatGoogleGemini'));
-                let agentInfo = agent ? agent.name : 'AI Agent';
-                let modelInfo = model ? `, powered by ${model.name}` : '';
-                return `Let me ask our AI agent (${agentInfo}${modelInfo}): ${userMsg}`;
-            }
-            </script>
-            <p class="contact-info">We typically respond within 24 hours. Thank you for being part of our community!</p>
             <script src="devpanel.js"></script>
         </main>
     </div>
